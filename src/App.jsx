@@ -1,18 +1,40 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { authOperations } from 'redux/auth';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, Suspense, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from 'redux/auth';
+import { PublicRoute } from 'routes/PublicRoute';
+import { PrivateRoute } from 'routes/PrivateRoute';
 
 import Container from './components/Container';
-import Footer from './components/Footer';
 import Header from './components/Header';
-import HomePage from 'pages/HomePage';
-import RegisterPage from 'pages/RegisterPage';
-import LoginPage from 'pages/LoginPage';
-import ContactsPage from 'pages/ContactsPage';
+import Footer from './components/Footer';
+// import Loader from 'components/Loader';
+
+/* Статичні імпорти */
+// import HomePage from 'pages/HomePage';
+// import RegisterPage from 'pages/RegisterPage';
+// import LoginPage from 'pages/LoginPage';
+// import ContactsPage from 'pages/ContactsPage';
+
+/* Динамічні імпорти */
+const HomePage = lazy(() =>
+  import('./pages/HomePage' /* webpackChunkName: "home-page" */)
+);
+const ContactsPage = lazy(() =>
+  import('./pages/ContactsPage' /* webpackChunkName: "contacts-page" */)
+);
+const RegisterPage = lazy(() =>
+  import('./pages/RegisterPage' /* webpackChunkName: "register-page" */)
+);
+const LoginPage = lazy(() =>
+  import('./pages/LoginPage' /* webpackChunkName: "login-page" */)
+);
+// const PublicRoute = lazy(() => import('./routes/PublicRoute'));
+// const PrivateRoute = lazy(() => import('./routes/PrivateRoute'));
 
 const App = () => {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
@@ -20,16 +42,57 @@ const App = () => {
 
   return (
     <Container>
-      <Header />
+      {isFetchingCurrentUser ? (
+        <h1>Show React Skeleton</h1>
+      ) : (
+        <>
+          <Header />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
-      </Routes>
+          <Suspense fallback={<p>Download...</p>}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <PublicRoute>
+                    <HomePage />
+                  </PublicRoute>
+                }
+              />
 
-      <Footer />
+              <Route
+                path="/contacts"
+                element={
+                  <PrivateRoute redirectPath={'/login'}>
+                    <ContactsPage />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/register"
+                element={
+                  <PublicRoute redirectPath={'/contacts'}>
+                    <RegisterPage />
+                  </PublicRoute>
+                }
+              />
+
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute redirectPath={'/contacts'}>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+
+              <Route path="*" element={<Navigate to="/register" />} />
+            </Routes>
+          </Suspense>
+
+          <Footer />
+        </>
+      )}
     </Container>
   );
 };

@@ -10,6 +10,6 @@ export const PublicRoute = ({ redirectPath = '/', children }) => {
 };
 
 PublicRoute.propTypes = {
-  redirectPath: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  redirectPath: PropTypes.string,
+  children: PropTypes.node,
 };

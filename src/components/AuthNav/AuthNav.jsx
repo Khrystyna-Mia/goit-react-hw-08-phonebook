@@ -13,21 +13,13 @@ const AuthNav = () => {
           justifyContent: 'flex-end',
         }}
       >
-        <Button
-          sx={{ display: 'block', marginRight: 1, my: 2, color: '#2E151B' }}
-          variant="text"
-          // href="#text-buttons"
-        >
+        <Button sx={{ display: 'block', marginRight: 1, my: 2 }} variant="text">
           <NavLink to="/register" className={s.link}>
             Sign up
           </NavLink>
         </Button>
 
-        <Button
-          sx={{ display: 'block', marginRight: 1, my: 2, color: '#2E151B' }}
-          variant="text"
-          // href="#text-buttons"
-        >
+        <Button sx={{ display: 'block', marginRight: 1, my: 2 }} variant="text">
           <NavLink to="/login" className={s.link}>
             Log in
           </NavLink>

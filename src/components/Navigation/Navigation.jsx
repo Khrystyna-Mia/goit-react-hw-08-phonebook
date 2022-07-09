@@ -11,22 +11,14 @@ const Navigation = () => {
   return (
     <>
       <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
-        <Button
-          sx={{ display: 'block', my: 2, color: '#2E151B' }}
-          variant="text"
-          // href="#text-buttons"
-        >
+        <Button sx={{ display: 'block', my: 2 }} variant="text">
           <NavLink to="/" className={s.link}>
             Home
           </NavLink>
         </Button>
 
         {isLoggedIn && (
-          <Button
-            sx={{ display: 'block', my: 2, color: '#2E151B' }}
-            variant="text"
-            // href="#text-buttons"
-          >
+          <Button sx={{ display: 'block', my: 2 }} variant="text">
             <NavLink to="/contacts" className={s.link}>
               Contacts
             </NavLink>

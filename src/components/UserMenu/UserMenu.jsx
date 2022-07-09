@@ -11,12 +11,13 @@ const UserMenu = () => {
 
   return (
     <div className={s.container}>
-      <img src={avatar} alt="" width="32" className={s.avatar} />
+      <img src={avatar} alt="" width="50" className={s.avatar} />
       <span className={s.rext}>Welcome, {email}</span>
       <Button
         type="button"
         variant="text"
-        color="#2E151B"
+        color="secondary"
+        size="large"
         sx={{ mt: 3, mb: 2 }}
         onClick={() => dispatch(authOperations.logOut())}
       >

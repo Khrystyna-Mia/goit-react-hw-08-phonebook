@@ -1,0 +1,31 @@
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 40px;
+  padding: 20px 0;
+  margin-top: -100px;
+
+  border-top: 4px solid;
+  border-image: linear-gradient(to right, #2e151b, #1c3334, #376e6f, #2e151b)
+    47% 0%;
+}
+
+.copyright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.copyrightText {
+  display: flex;
+  align-items: center;
+
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.icon {
+  margin: 0 10px;
+}

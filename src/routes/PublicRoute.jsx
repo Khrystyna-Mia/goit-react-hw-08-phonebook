@@ -1,17 +1,15 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth';
 import PropTypes from 'prop-types';
 
-export const PublickRoute = ({ restricted = false, redirectTo }) => {
+export const PublicRoute = ({ redirectPath = '/', children }) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
-  const shouldRedirect = isLoggedIn && restricted;
-
-  return shouldRedirect ? <Navigate to={redirectTo} /> : <Outlet />;
+  return isLoggedIn ? <Navigate to={redirectPath} replace /> : children;
 };
 
-PublickRoute.propTypes = {
-  restricted: PropTypes.bool.isRequired,
-  redirectTo: PropTypes.string.isRequired,
+PublicRoute.propTypes = {
+  redirectPath: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };

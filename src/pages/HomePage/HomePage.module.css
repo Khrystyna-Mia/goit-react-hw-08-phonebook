@@ -1,0 +1,24 @@
+.title {
+  text-align: center;
+
+  font-weight: 700;
+  font-size: 36px;
+
+  margin-top: 40px;
+}
+
+.text {
+  text-align: center;
+
+  font-weight: 600;
+  font-size: 32px;
+
+  margin-top: 20px;
+}
+
+.span {
+  font-weight: 600;
+  font-size: 32px;
+
+  color: #2e151b;
+}

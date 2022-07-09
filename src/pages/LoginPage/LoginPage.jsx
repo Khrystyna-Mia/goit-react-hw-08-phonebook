@@ -1,21 +1,38 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/auth';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
-const theme = createTheme();
+const useStyles = makeStyles(theme => ({
+  style: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const classes = useStyles();
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -38,33 +55,31 @@ const LoginPage = () => {
     e.preventDefault();
 
     dispatch(authOperations.logIn({ email, password }));
-    reset();
-  };
-
-  const reset = () => {
     setEmail('');
     setPassword('');
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <Container component="main" maxWidth="xs">
+      <div className={classes.style}>
+        <Avatar className={classes.avatar}></Avatar>
 
-        <Box>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
-          <Typography component="h1" variant="h5" color="#da7b93">
-            Hello, who's this?
-          </Typography>
-        </Box>
+        <Typography component="h1" variant="h5" color="secondary">
+          Hello, who's this?
+        </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <form
+          onSubmit={handleSubmit}
+          className={classes.form}
+          autoComplete="off"
+        >
           <TextField
             label="Email Address"
             required
             fullWidth
-            variant="filled"
+            variant="standard"
             margin="normal"
+            color="secondary"
             id="email"
             name="email"
             type="email"
@@ -78,8 +93,9 @@ const LoginPage = () => {
             label="Password"
             required
             fullWidth
-            variant="filled"
+            variant="standard"
             margin="normal"
+            color="secondary"
             id="password"
             name="password"
             type="password"
@@ -92,13 +108,15 @@ const LoginPage = () => {
             type="submit"
             fullWidth
             variant="outlined"
-            sx={{ mt: 3, mb: 2 }}
+            size="medium"
+            color="secondary"
+            className={classes.submit}
           >
             Log in
           </Button>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </form>
+      </div>
+    </Container>
   );
 };
 

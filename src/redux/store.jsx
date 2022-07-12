@@ -21,6 +21,7 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  contactsApi.middleware,
 ];
 
 const authPersistConfig = {

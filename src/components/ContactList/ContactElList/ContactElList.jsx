@@ -22,6 +22,7 @@ const ContactElList = ({ id, name, number }) => {
 };
 
 ContactElList.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
 };

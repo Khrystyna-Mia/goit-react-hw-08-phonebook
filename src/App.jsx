@@ -28,8 +28,6 @@ const RegisterPage = lazy(() =>
 const LoginPage = lazy(() =>
   import('./pages/LoginPage' /* webpackChunkName: "login-page" */)
 );
-// const PublicRoute = lazy(() => import('./routes/PublicRoute'));
-// const PrivateRoute = lazy(() => import('./routes/PrivateRoute'));
 
 const App = () => {
   const dispatch = useDispatch();
